@@ -1,44 +1,59 @@
-import * as React from 'react';
-import { Text, View, Button, ActivityIndicator, TextInput, ScrollView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Button, SafeAreaView, TextInput, Text, View, Alert } from "react-native";
+import { useState } from "react";
 
-const NotesList = () => {
+export default function App() {
+  const [header, setHeader] = useState("");
+  const [note, setNote] = useState("");
+
+  var muistiinpanot = []
+
   return (
-    <View>
-      <Text>Notes Screen</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Muistiinpanot:</Text>
+      <TextInput
+        placeholder="Otsikko"
+        value={header}
+        onChangeText={(text) => setHeader(text)}
+        keyboardType="default"
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Muistiinpano"
+        value={note}
+        onChangeText={(text) => setNote(text)}
+        keyboardType="default"
+        style={styles.input}
+        onSubmitEditing={() => alert("Muistiinpano lisätty")}
+        defaultValue={note}
+      />
+
+      <Button
+        title="Lisää muistiinpano"
+        color='#f194ff'
+        onPress={() => Alert.alert('Simple Button pressed')}
+      />
+    </SafeAreaView >
   );
 }
 
-const MenuScreen = () => {
-  return (
-    <View>
-      <Text>Menu Screen</Text>
-    </View>
-  );
-}
-
-const AdminScreen = () => {
-  return (
-    <View>
-      <Text>Admin Screen</Text>
-    </View>
-  );
-}
-
-const Stack = createStackNavigator();
-
-const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Notes">
-        <Stack.Screen name="Notes" component={NotesList} />
-        <Stack.Screen name="Menus" component={MenuScreen} />
-        <Stack.Screen name="Admin" component={AdminScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#228B22",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 40,
+    color: "#fff",
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
+  input: {
+    backgroundColor: "#fff",
+    padding: 10,
+    width: "80%",
+    marginTop: 15,
+    color: "#000",
+  },
+});
