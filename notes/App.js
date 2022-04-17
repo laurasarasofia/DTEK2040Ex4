@@ -1,5 +1,7 @@
 import { StyleSheet, Button, SafeAreaView, TextInput, Text, View, Alert } from "react-native";
 import { useState } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -43,6 +45,16 @@ export default function App() {
 
     </SafeAreaView >
   );
+}
+const Stack = createStackNavigator();
+const App = () =>{
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen> name ="Notes" component= {HomeScreen}</Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
 const styles = StyleSheet.create({
