@@ -2,36 +2,45 @@ import { StyleSheet, Button, SafeAreaView, TextInput, Text, View, Alert } from "
 import { useState } from "react";
 
 export default function App() {
-  const [header, setHeader] = useState("");
-  const [note, setNote] = useState("");
+  const [text, setText] = useState("");
+  const [notes, setNotes] = useState("");
+  const [timesPressed, setTimesPressed] = useState(0);
 
-  var muistiinpanot = []
+  let textLog = '';
+  if (timesPressed > 1) {
+    textLog = timesPressed + 'x onPress';
+  } else if (timesPressed > 0) {
+    textLog = 'onPress';
+  }
+
+
+
+
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Muistiinpanot:</Text>
       <TextInput
-        placeholder="Otsikko"
-        value={header}
-        onChangeText={(text) => setHeader(text)}
-        keyboardType="default"
-        style={styles.input}
-      />
-      <TextInput
         placeholder="Muistiinpano"
-        value={note}
-        onChangeText={(text) => setNote(text)}
+
+        onChangeText={(text) => setText(text)}
         keyboardType="default"
         style={styles.input}
-        onSubmitEditing={() => alert("Muistiinpano lisätty")}
-        defaultValue={note}
+
+        
       />
+      
 
       <Button
         title="Lisää muistiinpano"
         color='#f194ff'
-        onPress={() => Alert.alert('Simple Button pressed')}
+        onPress={() =>  {this.setNotes({
+          notes:[this.state.notes, this.state.text]})}}
       />
+      <Text>
+        {notes}
+      </Text>
+
     </SafeAreaView >
   );
 }
@@ -39,14 +48,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#228B22",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#98AFC7",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
   title: {
     fontSize: 40,
     color: "#fff",
-    marginBottom: 20,
+    marginBottom: 5,
     fontWeight: "bold",
   },
   input: {
