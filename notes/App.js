@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   const [text, setText] = useState("");
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState([]);
   const [timesPressed, setTimesPressed] = useState(0);
 
   let textLog = '';
@@ -14,9 +14,6 @@ export default function App() {
   } else if (timesPressed > 0) {
     textLog = 'onPress';
   }
-
-
-
 
 
   return (
@@ -29,33 +26,21 @@ export default function App() {
         keyboardType="default"
         style={styles.input}
 
-        
       />
-      
-
       <Button
         title="Lisää muistiinpano"
         color='#f194ff'
-        onPress={() =>  {this.setNotes({
-          notes:[this.state.notes, this.state.text]})}}
+        onPress={() =>  {this.setNotes({text})}}
+        onClick={()=> {this.setNotes({text})}}
       />
       <Text>
-        {notes}
+      {notes.forEach()}
       </Text>
-
+]
     </SafeAreaView >
   );
 }
-const Stack = createStackNavigator();
-const App = () =>{
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen> name ="Notes" component= {HomeScreen}</Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
-}
+
 
 const styles = StyleSheet.create({
   container: {
