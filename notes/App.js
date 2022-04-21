@@ -1,24 +1,33 @@
 import { StyleSheet, Button, SafeAreaView, TextInput, Text, View, Alert } from "react-native";
+import React from "react";
 import { useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { add } from "react-native-reanimated";
+
+let notes =[
+  "Note1",
+  "Note2",
+  "Note3",
+  "Note4"
+]
 
 export default function App() {
-  const [text, setText] = useState("");
-  const [notes, setNotes] = useState([]);
-  const [timesPressed, setTimesPressed] = useState(0);
+  const [text, setText] = React.useState("");
+  //const [notes, setNotes] = useState([]);
 
-  let textLog = '';
-  if (timesPressed > 1) {
-    textLog = timesPressed + 'x onPress';
-  } else if (timesPressed > 0) {
-    textLog = 'onPress';
+  const addNote = () =>{
+    notes.push(text.toString());
+    console.log(notes);
   }
+
+  
 
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Muistiinpanot:</Text>
+      {notes.map(note=> <Text>{note}</Text>)}
       <TextInput
         placeholder="Muistiinpano"
 
@@ -30,13 +39,8 @@ export default function App() {
       <Button
         title="Lisää muistiinpano"
         color='#f194ff'
-        onPress={() =>  {this.setNotes({text})}}
-        onClick={()=> {this.setNotes({text})}}
+        onClick={addNote} 
       />
-      <Text>
-      {notes.forEach()}
-      </Text>
-]
     </SafeAreaView >
   );
 }
