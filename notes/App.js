@@ -1,9 +1,6 @@
-import { StyleSheet, Button, SafeAreaView, TextInput, Text, View, Alert, ActivityIndicator,ScrollView } from "react-native";
+import { StyleSheet, Button, SafeAreaView, TextInput, Text, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React from 'react';
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { add } from "react-native-reanimated";
 
 
 
@@ -13,6 +10,23 @@ class App extends React.Component {
     this.state = {
       notes: [
         "Note1",
+        "Note2",
+        "Note3",
+        "Note4",
+        "Note2",
+        "Note3",
+        "Note4",
+        "Note2",
+        "Note3",
+        "Note4",
+        "Note2",
+        "Note3",
+        "Note4",
+        "Note4",
+        "Note2",
+        "Note3",
+        "Note4",
+        "Note4",
         "Note2",
         "Note3",
         "Note4"
@@ -45,20 +59,24 @@ class App extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Muistiinpanot:</Text>
-        {this.state.notes.map(note => <Text>{note}</Text>)}
+        <ScrollView style={styles.contentContainer}>
+          {this.state.notes.map(note => <Text style={styles.notes}>{note}</Text>)}
+        </ScrollView>
         <TextInput
-          placeholder="Muistiinpano"
+          placeholder="muistiinpano"
 
           onChangeText={(newText) => this.setState({ setText: newText })}
           keyboardType="default"
           style={styles.input}
+          
 
         />
         <Button
           title="Lisää muistiinpano"
-          color='#f194ff'
+          color='#e8bd48'
           onPress={this.addNote}
         />
+
       </SafeAreaView >
     );
   }
@@ -68,23 +86,37 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#98AFC7",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    backgroundColor: "#fa96da",
+
+
   },
   title: {
+    textAlign: "center",
     fontSize: 40,
-    color: "#fff",
+    color: "#e8bd48",
     marginBottom: 5,
     fontWeight: "bold",
   },
-  input: {
-    backgroundColor: "#fff",
-    padding: 10,
-    width: "80%",
-    marginTop: 15,
-    color: "#000",
+  contentContainer: {
+    textAlign: "center",
+    flex:2,
+    backgroundColor: "#ffe0f5",
+    alignSelf: "space-around"
+
   },
+  input: {
+    backgroundColor: "#fa96da",
+    color: "#ffffff",
+    borderColor: "#ffffff",
+    fontSize: 30,
+    textAlign: "center"
+  },
+  notes:{
+    color:"#ffffff",
+    fontWeight: "bold",
+    fontSize: 25
+
+  }
 });
 
 export default App
