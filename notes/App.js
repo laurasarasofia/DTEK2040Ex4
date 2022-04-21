@@ -1,48 +1,67 @@
-import { StyleSheet, Button, SafeAreaView, TextInput, Text, View, Alert } from "react-native";
-import React from "react";
-import { useState } from "react";
+import { StyleSheet, Button, SafeAreaView, TextInput, Text, View, Alert, ActivityIndicator,ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { add } from "react-native-reanimated";
 
-let notes =[
-  "Note1",
-  "Note2",
-  "Note3",
-  "Note4"
-]
 
-export default function App() {
-  const [text, setText] = React.useState("");
-  //const [notes, setNotes] = useState([]);
 
-  const addNote = () =>{
-    notes.push(text.toString());
-    console.log(notes);
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      notes: [
+        "Note1",
+        "Note2",
+        "Note3",
+        "Note4"
+      ],
+      text: "",
+      setText: ""
+    }
+
   }
 
-  
+  addNote = (event) => {
+
+    event.preventDefault();
+    const noteObject = this.state.setText;
+    const note = this.state.notes.concat(noteObject);
+
+    this.setState({
+      notes: note,
+      text: "",
+      setText: ""
+    })
+    console.log(note);
+    console.log(this.state.notes);
+
+  }
 
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Muistiinpanot:</Text>
-      {notes.map(note=> <Text>{note}</Text>)}
-      <TextInput
-        placeholder="Muistiinpano"
+  render() {
 
-        onChangeText={(text) => setText(text)}
-        keyboardType="default"
-        style={styles.input}
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>Muistiinpanot:</Text>
+        {this.state.notes.map(note => <Text>{note}</Text>)}
+        <TextInput
+          placeholder="Muistiinpano"
 
-      />
-      <Button
-        title="Lisää muistiinpano"
-        color='#f194ff'
-        onClick={addNote} 
-      />
-    </SafeAreaView >
-  );
+          onChangeText={(newText) => this.setState({ setText: newText })}
+          keyboardType="default"
+          style={styles.input}
+
+        />
+        <Button
+          title="Lisää muistiinpano"
+          color='#f194ff'
+          onPress={this.addNote}
+        />
+      </SafeAreaView >
+    );
+  }
 }
 
 
@@ -67,3 +86,5 @@ const styles = StyleSheet.create({
     color: "#000",
   },
 });
+
+export default App
