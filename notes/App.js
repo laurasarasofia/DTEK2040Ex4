@@ -1,7 +1,9 @@
-import { StyleSheet, Button, SafeAreaView, TextInput, Text, ScrollView } from "react-native";
+import { StyleSheet, Button, SafeAreaView, TextInput, Text, ScrollView, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React from 'react';
+import { createStackNavigator } from "@react-navigation/stack";
 
+const Stack = createStackNavigator();
 
 
 class App extends React.Component {
@@ -36,22 +38,41 @@ class App extends React.Component {
     }
 
   }
+  createAlert = () =>{
+    Alert.alert(
+      "Added note already exists!",
+      "Please write a new note.",
+      [{
+        text: "OK",
+        onPress: () => console.log("noticed.")
+      }]
+    )
+  }
 
   addNote = (event) => {
 
     event.preventDefault();
     const noteObject = this.state.setText;
-    const note = this.state.notes.concat(noteObject);
 
-    this.setState({
-      notes: note,
-      text: "",
-      setText: ""
-    })
-    console.log(note);
+    if (this.state.notes.includes(noteObject)) {
+      this.createAlert();
+    } else {
+      const note = this.state.notes.concat(noteObject);
+
+
+      this.setState({
+        notes: note,
+        text: "",
+        setText: ""
+      })
+      console.log(note);
+    }
+    //this.te
     console.log(this.state.notes);
 
   }
+
+  
 
 
   render() {
@@ -101,7 +122,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flex:2,
     backgroundColor: "#ffe0f5",
-    alignSelf: "space-around"
+
 
   },
   input: {
